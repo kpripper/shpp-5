@@ -6,25 +6,27 @@ buttonMinus.addEventListener('click', minus)
 buttonPlus.addEventListener('click', plus)
 buttonStart.addEventListener('click', start)
 
-function minus() {
+function minus () {
   console.log(document.querySelector('.time').innerHTML)
-  document.querySelector('.time').innerHTML =
-    +document.querySelector('.time').innerHTML - 1
+  if (document.querySelector('.time').innerHTML > 1) {
+    document.querySelector('.time').innerHTML =
+      +document.querySelector('.time').innerHTML - 1
+  }
 }
 
-function plus() {
+function plus () {
   console.log(document.querySelector('.time').innerHTML)
   document.querySelector('.time').innerHTML =
     +document.querySelector('.time').innerHTML + 1
 }
 
-function start() {
+function start () {
   console.log('start')
 
-  let time = document.querySelector('.time').innerHTML
-  let duration = moment.duration(time * 1000 * 60, 'milliseconds') 
+  const time = document.querySelector('.time').innerHTML
+  let duration = moment.duration(time * 1000 * 60, 'milliseconds')
 
-  let timer = setInterval(function () {
+  const timer = setInterval(() => {
     duration = moment.duration(
       duration.asMilliseconds() - 1000,
       'milliseconds'
@@ -39,5 +41,3 @@ function start() {
     ).format('mm:ss')
   }, 1000)
 }
-
-
