@@ -6,7 +6,7 @@ buttonMinus.addEventListener('click', minus)
 buttonPlus.addEventListener('click', plus)
 buttonStart.addEventListener('click', start)
 
-function minus() {
+function minus () {
   console.log(document.querySelector('.time').innerHTML)
   if (document.querySelector('.time').innerHTML > 1) {
     document.querySelector('.time').innerHTML =
@@ -14,28 +14,30 @@ function minus() {
   }
 }
 
-function plus() {
+function plus () {
   console.log(document.querySelector('.time').innerHTML)
   document.querySelector('.time').innerHTML =
     +document.querySelector('.time').innerHTML + 1
 }
 
-function start() {
-  console.log('start')
-
+function start () {
   const time = document.querySelector('.time').innerHTML
-  let duration = moment.duration(time * 1000 * 60, 'milliseconds')
 
-  const timer = setInterval(() => {
-    duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds')
+  if (time === '00:00') {
+    document.querySelector('.time').innerHTML = 'Set correct time'
+  } else {
+    let duration = moment.duration(time * 1000 * 60, 'milliseconds')
 
-    if (duration.asSeconds() <= 0) {
-      clearInterval(timer)
-      time = 0
-    }
+    const timer = setInterval(() => {
+      duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds')
 
-    document.querySelector('.time').innerHTML = moment(
-      duration.asMilliseconds()
-    ).format('mm:ss')
-  }, 1000)
+      if (document.querySelector('.time').innerHTML === '00:01') {
+        clearInterval(timer)
+      }
+
+      document.querySelector('.time').innerHTML = moment(
+        duration.asMilliseconds()
+      ).format('mm:ss')
+    }, 1000)
+  }
 }
